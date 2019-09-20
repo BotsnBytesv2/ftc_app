@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,9 +31,6 @@ public class Skystone_Teleops extends OpMode {
         frontrightmotor.setPower(0.0);
         backleftmotor.setPower(0.0);
         backrightmotor.setPower(0.0);
-
-        int[] moveType = {1};
-        int moveNum = 0;
     }
 
     @Override
@@ -65,7 +61,22 @@ public class Skystone_Teleops extends OpMode {
 
 
         if(moveNum == 0 || moveType[moveNum] == 1){
+            double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+            double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
+            double rightX = gamepad1.right_stick_x;
+            final double v1 = r * Math.sin(robotAngle) - rightX;
+            final double v2 = -r * Math.cos(robotAngle) - rightX;
+            final double v3 = r * Math.cos(robotAngle) - rightX;
+            final double v4 = -r * Math.sin(robotAngle) - rightX;
 
+            frontleftmotor.setPower(v1);
+            frontrightmotor.setPower(v2);
+            backleftmotor.setPower(v3);
+            backrightmotor.setPower(v4);
+            telemetry.addData("Front Left Motor:", v1 );
+            telemetry.addData("Front Right Motor:", v2 );
+            telemetry.addData("Front Right Motor:", v3 );
+            telemetry.addData("Front Right Motor:", v4 );
         }
 
         else if(moveType[moveNum] == 2){
@@ -91,26 +102,27 @@ public class Skystone_Teleops extends OpMode {
 
         else if(moveType[moveNum] == 3) {
             if (gamepad1.left_trigger > 0) {
-                frontleftmotor.setPower(gamepad1.left_trigger * 0.1);
-                backleftmotor.setPower(-gamepad1.left_trigger * 0.1);
-                frontrightmotor.setPower(gamepad1.left_trigger * 0.1);
-                backrightmotor.setPower(-gamepad1.left_trigger * 0.1);
+                frontleftmotor.setPower(gamepad1.left_trigger * 0.2);
+                backleftmotor.setPower(-gamepad1.left_trigger * 0.2);
+                frontrightmotor.setPower(gamepad1.left_trigger * 0.2);
+                backrightmotor.setPower(-gamepad1.left_trigger * 0.2);
             } else if (gamepad1.right_trigger > 0) {
-                frontleftmotor.setPower(-gamepad1.right_trigger * 0.1);
-                backleftmotor.setPower(gamepad1.right_trigger * 0.1);
-                frontrightmotor.setPower(-gamepad1.right_trigger * 0.1);
-                backrightmotor.setPower(gamepad1.right_trigger * 0.1);
+                frontleftmotor.setPower(-gamepad1.right_trigger * 0.2);
+                backleftmotor.setPower(gamepad1.right_trigger * 0.2);
+                frontrightmotor.setPower(-gamepad1.right_trigger * 0.2);
+                backrightmotor.setPower(gamepad1.right_trigger * 0.2);
             } else {
-                frontleftmotor.setPower(leftMove * 0.1);
-                backleftmotor.setPower(leftMove * 0.1);
-                frontrightmotor.setPower(rightMove * 0.1);
-                backrightmotor.setPower(rightMove * 0.1);
+                frontleftmotor.setPower(leftMove * 0.2);
+                backleftmotor.setPower(leftMove * 0.2);
+                frontrightmotor.setPower(rightMove * 0.2);
+                backrightmotor.setPower(rightMove * 0.2);
             }
 
         }
 
         else{
-
+            telemetry.addLine("We are f-ing retarded idiots with no lives");
         }
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 }
