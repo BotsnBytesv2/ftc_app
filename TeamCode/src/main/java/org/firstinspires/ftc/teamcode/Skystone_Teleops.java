@@ -19,7 +19,7 @@ public class Skystone_Teleops extends OpMode {
 
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Initialized", "We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives");
         telemetry.update();
 
         frontleftmotor = hardwareMap.get(DcMotor.class, "frontleftmotor");
@@ -36,7 +36,8 @@ public class Skystone_Teleops extends OpMode {
     @Override
     public void loop() {
         //Variables being used
-        int[] moveType = {1};
+        int[] moveType = new int[50];
+        moveType[0] = 0;
         int moveNum = 0;
         double leftMove = gamepad1.left_stick_y;
         double rightMove = gamepad1.right_stick_y;
@@ -121,7 +122,7 @@ public class Skystone_Teleops extends OpMode {
         }
 
         else{
-            telemetry.addLine("We are f-ing retarded idiots with no lives");
+            telemetry.addLine("We are fucking retarded idiots with no lives and have bitchy lives");
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
