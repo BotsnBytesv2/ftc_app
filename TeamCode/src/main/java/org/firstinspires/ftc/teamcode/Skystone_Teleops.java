@@ -19,7 +19,7 @@ public class Skystone_Teleops extends OpMode {
 
     @Override
     public void init() {
-        telemetry.addData("Status", "Initialized", "We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives"+"We are fucking retarded idiots with no lives and have bitchy"+"We are fucking retarded idiots with no lives and have bitchy lives");
+        telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         frontleftmotor = hardwareMap.get(DcMotor.class, "frontleftmotor");
