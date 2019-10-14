@@ -122,7 +122,7 @@ public class Skystone_Teleops extends OpMode {
         }
 
         else{
-            telemetry.addLine("We are fucking retarded idiots with no lives and have bitchy lives");
+            telemetry.addLine("YEET YEET MY NAME IS BALJEET");
         }
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
