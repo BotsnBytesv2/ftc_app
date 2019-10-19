@@ -17,6 +17,9 @@ public class Skystone_Teleops extends OpMode {
     private DcMotor backleftmotor = null;
     private DcMotor backrightmotor = null;
 
+    int[] moveType = new int[50];
+    int moveNum = 0;
+
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -31,19 +34,17 @@ public class Skystone_Teleops extends OpMode {
         frontrightmotor.setPower(0.0);
         backleftmotor.setPower(0.0);
         backrightmotor.setPower(0.0);
+
+
     }
 
     @Override
     public void loop() {
         //Variables being used
-        int[] moveType = new int[50];
-        moveType[0] = 0;
-        int moveNum = 0;
         double leftMove = gamepad1.left_stick_y;
         double rightMove = gamepad1.right_stick_y;
 
-
-
+        moveType[0] = 0;
 
         if(gamepad1.dpad_up = true){
             moveNum+=1;
