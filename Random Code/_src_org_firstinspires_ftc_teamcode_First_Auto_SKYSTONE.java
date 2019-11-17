@@ -13,9 +13,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.android.AndroidTextToSpeech;
 
-@Autonomous
+@Autonomous(name = "First_AUTO_SKYSTONE", group = "Concept")
 
-public class First_Auto_SKYSTONE {
+public class First_Auto_SKYSTONE extends LinearOpMode{
+    
     private ElapsedTime runtime = new ElapsedTime();
     
     private static DcMotor frontleftmotor = null;
@@ -35,6 +36,13 @@ public class First_Auto_SKYSTONE {
         backrightmotor = hardwareMap.get(DcMotor.class, "backrightmotor");
         backleftmotor = hardwareMap.get(DcMotor.class, "backleftmotor");
         
+        frontleftmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontrightmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backleftmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backrightmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        
+        
+        
         frontleftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontrightmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backleftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -48,7 +56,9 @@ public class First_Auto_SKYSTONE {
         backleftmotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         
         
-        waitforstart();
+        waitForStart();
+        path_1();
+        
         
     }
     
@@ -59,64 +69,113 @@ public class First_Auto_SKYSTONE {
         backrightmotor.setTargetPosition(distance_real);
         backleftmotor.setTargetPosition(distance_real);
         
-        frontrightmotor.setPower(-frontrightmotor);
-        frontleftmotor.setPower(frontleftmotor);
-        backrightmotor.setPower(-backrightmotor);
-        backleftmotor.setPower(backleftmotor);
+        frontrightmotor.setPower(-frontrightspeed);
+        frontleftmotor.setPower(frontleftspeed);
+        backrightmotor.setPower(-backrightspeed);
+        backleftmotor.setPower(backleftspeed);
         
-        stopMotor();
+        stopMotor1();
 
     }
 
     private void moveBackward(double distance){
         int distance_real = (int) distance;
-        frontrightmotor.setTargetPosition(distance);
-        frontleftmotor.setTargetPosition(distance);
-        backrightmotor.setTargetPosition(distance);
-        backleftmotor.setTargetPosition(distance);
+        frontrightmotor.setTargetPosition(distance_real);
+        frontleftmotor.setTargetPosition(distance_real);
+        backrightmotor.setTargetPosition(distance_real);
+        backleftmotor.setTargetPosition(distance_real);
         
-        frontrightmotor.setPower(frontrightmotor);
-        frontleftmotor.setPower(-frontleftmotor);
-        backrightmotor.setPower(backrightmotor);
-        backleftmotor.setPower(-backleftmotor);
+        frontrightmotor.setPower(frontrightspeed);
+        frontleftmotor.setPower(-frontleftspeed);
+        backrightmotor.setPower(backrightspeed);
+        backleftmotor.setPower(-backleftspeed);
         
-        stopMotor();
+        stopMotor1();
     }
 
 
-    /*private void spinleft(){
-        frontrightmotor.setTargetPosition();
-        frontleftmotor.setTargetPosition();
-        backrightmotor.setTargetPosition();
-        backleftmotor.setTargetPosition();
+    private void spinleft(double degrees){
+        int distance_spin = (int) (degrees * 1120/90);
+
+        frontrightmotor.setTargetPosition(distance_spin);
+        frontleftmotor.setTargetPosition(distance_spin);
+        backrightmotor.setTargetPosition(distance_spin);
+        backleftmotor.setTargetPosition(distance_spin);
         
-        frontrightmotor.setPower(frontrightmotor);
-        frontleftmotor.setPower(frontleftmotor);
-        backrightmotor.setPower(backrightmotor);
-        backleftmotor.setPower(backleftmotor);
+        frontrightmotor.setPower(frontrightspeed);
+        frontleftmotor.setPower(-frontleftspeed);
+        backrightmotor.setPower(-backrightspeed);
+        backleftmotor.setPower(backleftspeed);
         
-        stopMotor();
+        stopMotor1();
     }
 
-    private void spinright(){
-        frontrightmotor.setTargetPosition();
-        frontleftmotor.setTargetPosition();
-        backrightmotor.setTargetPosition();
-        backleftmotor.setTargetPosition();
-        
-        frontrightmotor.setPower(frontrightmotor);
-        frontleftmotor.setPower(frontleftmotor);
-        backrightmotor.setPower(backrightmotor);
-        backleftmotor.setPower(backleftmotor);
-        
-        stopMotor();
-    }*/
+    private void spinright(double degrees){
+        int distance_spin = (int) (degrees * 1120/90);
 
-    private void stopMotor() {
+        frontrightmotor.setTargetPosition(distance_spin);
+        frontleftmotor.setTargetPosition(distance_spin);
+        backrightmotor.setTargetPosition(distance_spin);
+        backleftmotor.setTargetPosition(distance_spin);
+        
+        frontrightmotor.setPower(-frontrightspeed);
+        frontleftmotor.setPower(frontleftspeed);
+        backrightmotor.setPower(backrightspeed);
+        backleftmotor.setPower(-backleftspeed);
+        
+        stopMotor1();
+    }
+
+    private void straferight(double distance){
+        int distance_real = (int) (distance * 1120/ 2.5);
+
+        frontrightmotor.setTargetPosition(distance_real);
+        frontleftmotor.setTargetPosition(distance_real);
+        backrightmotor.setTargetPosition(distance_real);
+        backleftmotor.setTargetPosition(distance_real);
+        
+        frontrightmotor.setPower(-frontrightspeed);
+        frontleftmotor.setPower(frontleftspeed);
+        backrightmotor.setPower(backrightspeed);
+        backleftmotor.setPower(-backleftspeed);
+        
+        stopMotor1();
+
+    }
+
+    private void strafeleft(double distance){
+        int distance_real = (int) (distance * 1120/ 2.5);
+
+        frontrightmotor.setTargetPosition(distance_real);
+        frontleftmotor.setTargetPosition(distance_real);
+        backrightmotor.setTargetPosition(distance_real);
+        backleftmotor.setTargetPosition(distance_real);
+        
+        frontrightmotor.setPower(frontrightspeed);
+        frontleftmotor.setPower(-frontleftspeed);
+        backrightmotor.setPower(-backrightspeed);
+        backleftmotor.setPower(backleftspeed);
+        
+        stopMotor1();
+
+    }
+
+    private void stopMotor1() {
+        
         frontleftmotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontrightmotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backrightmotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backleftmotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        
+        frontleftmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontrightmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backleftmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backrightmotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        
+        frontleftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontrightmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backleftmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backrightmotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     
     
@@ -125,8 +184,7 @@ public class First_Auto_SKYSTONE {
         double wheelCirc = 12.57;
         double distance_x = inches/wheelCirc;
         double distance_full = distance_x * wheelTicks;
-        this.type = type;
-        if(type == "f"){
+        if(type == 'f'){
             moveForward(distance_full);
         }
         else{
@@ -143,9 +201,15 @@ public class First_Auto_SKYSTONE {
     }
     
     private void path_1(){
-        distanceFormula(-63, 45, -63, 56);
+        distanceFormula(-63, 45, -63, 56, 'f');
         spinright(45);
-        
+        distanceFormula(-63, 56, -57, 62, 'f');
+        spinright(45);
+        distanceFormula(-57, 62,-26 ,62 , 'f');
+        sleep(1000);
+
+
+
     }
     
     
