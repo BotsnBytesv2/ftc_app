@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.android.AndroidTextToSpeech;
 
-@Autonomous(name = "First_AUTO_SKYSTONE", group = "Concept")
+@Autonomous(name = "Test_AUTO_SKYSTONE", group = "Concept")
 
 public class First_Auto_SKYSTONE extends LinearOpMode{
     
@@ -24,10 +24,10 @@ public class First_Auto_SKYSTONE extends LinearOpMode{
     private static DcMotor backleftmotor = null;
     private static DcMotor backrightmotor = null;
     
-    double frontleftspeed = 0.8;
-    double frontrightspeed = 0.8;
-    double backleftspeed = 0.8;
-    double backrightspeed = 0.8;
+    double frontleftspeed = -0.8;
+    double frontrightspeed = -0.8;
+    double backleftspeed = -0.8;
+    double backrightspeed = -0.8;
     
     
     public void runOpMode(){
@@ -57,9 +57,22 @@ public class First_Auto_SKYSTONE extends LinearOpMode{
         
         
         waitForStart();
-        path_1();
+        spinrighttest();
         
         
+    }
+
+    private void testSpin(){
+        frontrightmotor.setTargetPosition(2240);
+        frontleftmotor.setTargetPosition(2240);
+        backrightmotor.setTargetPosition(2240);
+        backleftmotor.setTargetPosition(2240);
+        
+        frontrightmotor.setPower(frontrightspeed);
+        frontleftmotor.setPower(-frontleftspeed);
+        backrightmotor.setPower(-backrightspeed);
+        backleftmotor.setPower(backleftspeed);
+
     }
     
     private void moveForward(double distance){
@@ -117,6 +130,20 @@ public class First_Auto_SKYSTONE extends LinearOpMode{
         frontleftmotor.setTargetPosition(distance_spin);
         backrightmotor.setTargetPosition(distance_spin);
         backleftmotor.setTargetPosition(distance_spin);
+        
+        frontrightmotor.setPower(-frontrightspeed);
+        frontleftmotor.setPower(frontleftspeed);
+        backrightmotor.setPower(backrightspeed);
+        backleftmotor.setPower(-backleftspeed);
+        
+        stopMotor1();
+    }
+
+    private void spinrighttest(){
+        frontrightmotor.setTargetPosition(1120);
+        frontleftmotor.setTargetPosition(1120);
+        backrightmotor.setTargetPosition(1120);
+        backleftmotor.setTargetPosition(1120);
         
         frontrightmotor.setPower(-frontrightspeed);
         frontleftmotor.setPower(frontleftspeed);
@@ -187,8 +214,11 @@ public class First_Auto_SKYSTONE extends LinearOpMode{
         if(type == 'f'){
             moveForward(distance_full);
         }
-        else{
+        else if(type == 'b'){
             moveBackward(distance_full);
+        }
+        else{
+
         }
         
     }
@@ -198,19 +228,205 @@ public class First_Auto_SKYSTONE extends LinearOpMode{
         double final_y = Math.pow(y2 - y1, 2);
         double distance = (Math.sqrt(final_x + final_y));
         distanceCalculate(distance, type);
-    }
+    }   
     
     private void path_1(){
-        distanceFormula(-63, 45, -63, 56, 'f');
-        spinright(45);
-        distanceFormula(-63, 56, -57, 62, 'f');
-        spinright(45);
-        distanceFormula(-57, 62,-26 ,62 , 'f');
-        sleep(1000);
-
-
-
+        straferight(9);
+        distanceFormula(-54, 45, -54, 60, 'f');
+        spinright(90);
+        distanceFormula(-45, 53, -30, 53, 'f');
+        spinleft(180);
+        distanceFormula(-30, 53, -26, 53, 'b' );
+        distanceFormula(-26, 53, -53, 53, 'f');
+        straferight(53);
     }
     
+    private void test(){
+        distanceCalculate(1, 'f');
+    }
+
+    private void path_2(){
+        straferight(9);
+        distanceFormula(-54, 45, -54, 60, 'f');
+        spinright(90);
+        distanceFormula(-45, 53, -30, 53, 'f');
+        spinleft(180);
+        distanceFormula(-30, 53, -26, 53, 'b' );
+        distanceFormula(-26, 53, -53, 53, 'f');
+        straferight(53);
+        distanceFormula(-53, 0, -27, 0, 'b');
+    }
+
+    private void path_3(){
+        straferight(9);
+        distanceFormula(-54, 21, -54, 60, 'f');
+        spinright(90);
+        distanceFormula(-45, 53, -30, 53, 'f');
+        spinleft(180);
+        distanceFormula(-30, 53, -26, 53, 'b' );
+        distanceFormula(-26, 53, -53, 53, 'f');
+        straferight(53);
+
+    }
+
+    private void path_4(){
+        straferight(9);
+        distanceFormula(-54, 21, -54, 60, 'f');
+        spinright(90);
+        distanceFormula(-45, 53, -30, 53, 'f');
+        spinleft(180);
+        distanceFormula(-30, 53, -26, 53, 'b' );
+        distanceFormula(-26, 53, -53, 53, 'f');
+        straferight(53);
+        distanceFormula(-53, 0, -27, 0, 'b');
+    }
+
+    /*private void path_5(){
+        strafeleft(25);
+        distanceFormula(-38, -21, -38, -61, 'f');
+        distanceFormula(-38, -61, -38, 23, 'b');
+        spinright(180);
+        distanceFormula(-38, 41, -38, 32, 'b');
+        straferight(25);
+        strafeleft(25);
+        distanceFormula(-38, 32, -38, -61, 'b');
+        distanceFormula(-38, -61, -38, 32, 'f');
+        straferight(25);
+        strafeleft(25);
+        spinleft(90);
+        distanceFormula(-29, 23, -70, 23, 'f');
+        strafeleft(23);
+    }
+
+    private void path_6(){
+        strafeleft(25);
+        distanceFormula(-38, -21, -38, -61, 'f');
+        distanceFormula(-38, -61, -38, 23, 'b');
+        spinright(180);
+        distanceFormula(-38, 41, -38, 32, 'b');
+        straferight(25);
+        strafeleft(25);
+        distanceFormula(-38, 32, -38, -61, 'b');
+        distanceFormula(-38, -61, -38, 32, 'f');
+        straferight(25);
+        strafeleft(25);
+        spinleft(90);
+        distanceFormula(-29, 23, -44, 23, 'f');
+        strafeleft(23);
+    }
+
+    private void path_7(){
+        strafeleft(25);
+        distanceFormula(-38, -45, -38, -61, 'f');
+        distanceFormula(-38, -61, -38, 23, 'b');
+        spinright(180);
+        distanceFormula(-38, 41, -38, 32, 'b');
+        straferight(25);
+        strafeleft(25);
+        distanceFormula(-38, 32, -38, -61, 'b');
+        distanceFormula(-38, -61, -38, 32, 'f');
+        straferight(25);
+        strafeleft(25);
+        spinleft(90);
+        distanceFormula(-29, 23, -70, 23, 'f');
+        strafeleft(23);
+    }
+
+    private void path_8(){
+        strafeleft(25);
+        distanceFormula(-38, -45, -38, -61, 'f');
+        distanceFormula(-38, -61, -38, 23, 'b');
+        spinright(180);
+        distanceFormula(-38, 41, -38, 32, 'b');
+        straferight(25);
+        strafeleft(25);
+        distanceFormula(-38, 32, -38, -61, 'b');
+        distanceFormula(-38, -61, -38, 32, 'f');
+        straferight(25);
+        strafeleft(25);
+        spinleft(90);
+        distanceFormula(-29, 23, -44, 23, 'f');
+        strafeleft(23);
+    }*/
+
+    private void path_9(){
+        strafeleft(9);
+        distanceFormula(54, 45, 54, 60, 'f');
+        spinleft(90);
+        distanceFormula(45, 53, 30, 53, 'f');
+        spinright(180);
+        distanceFormula(30, 53, 26, 53, 'b' );
+        distanceFormula(26, 53, 53, 53, 'f');
+        strafeleft(53);
+    }
     
+    private void path_10(){
+        strafeleft(9);
+        distanceFormula(54, 45, 54, 60, 'f');
+        spinleft(90);
+        distanceFormula(45, 53, 30, 53, 'f');
+        spinright(180);
+        distanceFormula(30, 53, 26, 53, 'b' );
+        distanceFormula(26, 53, 53, 53, 'f');
+        strafeleft(53);
+        distanceFormula(53, 0, 27, 0, 'b');
+    }
+
+    private void path_11(){
+        strafeleft(9);
+        distanceFormula(54, 21, 54, 60, 'f');
+        spinleft(90);
+        distanceFormula(45, 53, 30, 53, 'f');
+        spinright(180);
+        distanceFormula(30, 53, 26, 53, 'b' );
+        distanceFormula(26, 53, 53, 53, 'f');
+        strafeleft(53);
+    }
+
+    private void path_12(){
+        strafeleft(9);
+        distanceFormula(54, 21, 54, 60, 'f');
+        spinleft(90);
+        distanceFormula(45, 53, 30, 53, 'f');
+        spinright(180);
+        distanceFormula(30, 53, 26, 53, 'b' );
+        distanceFormula(26, 53, 53, 53, 'f');
+        strafeleft(53);
+        distanceFormula(53, 0, 27, 0, 'b');
+    }
+
+    /*private void path_13(){
+        straferight(25);
+        distanceFormula(38, -21, 38, -61, 'f');
+        distanceFormula(38, -61, 38, 23, 'b');
+        spinright(180);
+        distanceFormula(38, 41, 38, 32, 'b');
+        strafeleft(25);
+        straferight(25);
+        distanceFormula(38, 32, 38, -61, 'b');
+        distanceFormula(38, -61, 38, 32, 'f');
+        strafeleft(25);
+        straferight(25);
+        spinright(90);
+        distanceFormula(29, 23, 70, 23, 'f');
+        straferight(23);
+    }
+
+    private void path_14(){
+        straferight(25);
+        distanceFormula(38, -21, 38, -61, 'f');
+        distanceFormula(38, -61, 38, 23, 'b');
+        spinright(180);
+        distanceFormula(38, 41, 38, 32, 'b');
+        strafeleft(25);
+        straferight(25);
+        distanceFormula(38, 32, 38, -61, 'b');
+        distanceFormula(38, -61, 38, 32, 'f');
+        strafeleft(25);
+        straferight(25);
+        spinright(90);
+        distanceFormula(29, 23, 44, 23, 'f');
+        straferight(23);
+    }*/
+
 }
